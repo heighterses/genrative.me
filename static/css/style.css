@@ -855,51 +855,156 @@ section {
     }
     
     .nav__actions .btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+        gap: 0.3rem;
     }
     
-    /* Hero Section */
+    .nav__actions .btn i {
+        font-size: 0.75rem;
+    }
+    
+    /* Hero Section - Ultra Modern Mobile Design */
     .hero {
-        min-height: 90vh;
-        padding-top: 2rem;
+        min-height: 100vh;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: 
+            radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 212, 255, 0.3) 0%, transparent 60%),
+            radial-gradient(ellipse 60% 40% at 50% 120%, rgba(124, 58, 237, 0.25) 0%, transparent 60%),
+            linear-gradient(180deg, var(--primary-bg) 0%, #0f0f1a 100%);
+        overflow: hidden;
+    }
+    
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 98px,
+                rgba(0, 212, 255, 0.03) 100px
+            ),
+            repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 98px,
+                rgba(124, 58, 237, 0.03) 100px
+            );
+        pointer-events: none;
+        animation: gridMove 20s linear infinite;
+    }
+    
+    @keyframes gridMove {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(100px, 100px); }
+    }
+    
+    .hero::after {
+        content: '';
+        position: absolute;
+        top: 20%;
+        left: -10%;
+        width: 120%;
+        height: 60%;
+        background: 
+            radial-gradient(ellipse, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+        filter: blur(40px);
+        animation: float 6s ease-in-out infinite;
+        pointer-events: none;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(1deg); }
     }
     
     .hero__container {
-        padding-top: 3rem;
+        padding: 7rem 2rem 4rem;
+        width: 100%;
+        position: relative;
+        z-index: 10;
+        max-width: 100%;
     }
     
     .hero__content {
         grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
+        text-align: left;
+        gap: 0;
+        max-width: 100%;
+    }
+    
+    .hero__text {
+        padding: 0;
+        position: relative;
     }
     
     .hero__title {
-        font-size: 2.5rem;
+        font-size: 3.2rem;
         line-height: 1.1;
+        margin-bottom: 3rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        position: relative;
     }
     
+    /* Hide description on mobile */
     .hero__description {
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
+        display: none;
     }
     
     .hero__cta {
-        gap: 1.5rem;
+        gap: 2rem;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+    }
+    
+    .hero__cta .btn--large {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        border-radius: 0.5rem;
+        background: var(--accent-gradient);
+        box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+        transition: all var(--transition-smooth);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero__cta .btn--large:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
     }
     
     .hero__stats {
-        justify-content: center;
-        gap: 2rem;
+        justify-content: flex-start;
+        gap: 3rem;
+        margin-top: 2rem;
+    }
+    
+    .stat {
+        text-align: left;
     }
     
     .stat__number {
-        font-size: 1.8rem;
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 0.25rem;
+        font-weight: 700;
+        color: var(--accent-primary);
     }
     
     .stat__label {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
     }
     
     /* Hide entire hero animation section on mobile */
@@ -1093,27 +1198,57 @@ section {
     }
     
     .nav__actions .btn {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.85rem;
+        padding: 0.35rem 0.7rem;
+        font-size: 0.75rem;
+        gap: 0.25rem;
     }
     
-    /* Hero */
+    .nav__actions .btn i {
+        font-size: 0.7rem;
+    }
+    
+    /* Hero - Smaller Mobile Devices */
+    .hero {
+        min-height: 100vh;
+        padding: 0;
+    }
+    
+    .hero__container {
+        padding: 6rem 1.5rem 3rem;
+        max-width: 100%;
+    }
+    
     .hero__title {
-        font-size: 2rem;
-        margin-bottom: 1rem;
+        font-size: 2.8rem;
+        margin-bottom: 2.5rem;
+        line-height: 1.1;
     }
     
+    /* Keep description hidden on smaller mobile */
     .hero__description {
+        display: none;
+    }
+    
+    .hero__cta {
+        gap: 2rem;
+    }
+    
+    .hero__cta .btn--large {
+        padding: 1rem 2rem;
         font-size: 1rem;
-        margin-bottom: 1.25rem;
     }
     
     .hero__stats {
-        gap: 1.5rem;
+        gap: 2.5rem;
+        margin-top: 2rem;
     }
     
     .stat__number {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+    }
+    
+    .stat__label {
+        font-size: 0.85rem;
     }
     
     /* Hero visual remains hidden on smaller mobile devices */
@@ -1248,8 +1383,42 @@ section {
         padding: 0 0.75rem;
     }
     
+    .hero__container {
+        padding: 5.5rem 1rem 2.5rem;
+        max-width: 100%;
+    }
+    
     .hero__title {
-        font-size: 1.75rem;
+        font-size: 2.4rem;
+        margin-bottom: 2rem;
+        line-height: 1.1;
+    }
+    
+    /* Keep description hidden on smallest mobile */
+    .hero__description {
+        display: none;
+    }
+    
+    .hero__cta {
+        gap: 2rem;
+    }
+    
+    .hero__cta .btn--large {
+        padding: 0.9rem 1.8rem;
+        font-size: 0.95rem;
+    }
+    
+    .hero__stats {
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .stat__number {
+        font-size: 1.6rem;
+    }
+    
+    .stat__label {
+        font-size: 0.8rem;
     }
     
     .section-title {
