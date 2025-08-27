@@ -888,45 +888,8 @@ section {
         font-size: 0.8rem;
     }
     
-    /* Hero Animation */
+    /* Hide entire hero animation section on mobile */
     .hero__visual {
-        order: -1;
-        margin-bottom: 1rem;
-    }
-    
-    .hero__animation {
-        width: 250px;
-        height: 200px;
-    }
-    
-    .data-node {
-        width: 8px;
-        height: 8px;
-    }
-    
-    @keyframes dataFlow {
-        0% { transform: translateX(0) translateY(0); opacity: 0; }
-        10% { opacity: 1; }
-        90% { opacity: 1; }
-        100% { transform: translateX(200px) translateY(80px); opacity: 0; }
-    }
-    
-    .pipeline-visual {
-        flex-direction: column;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-    
-    .pipeline-step {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-    }
-    
-    .pipeline-step i {
-        font-size: 1.2rem;
-    }
-    
-    .pipeline-arrow {
         display: none;
     }
     
@@ -1139,16 +1102,9 @@ section {
         font-size: 1.5rem;
     }
     
-    .hero__animation {
-        width: 200px;
-        height: 150px;
-    }
-    
-    @keyframes dataFlow {
-        0% { transform: translateX(0) translateY(0); opacity: 0; }
-        10% { opacity: 1; }
-        90% { opacity: 1; }
-        100% { transform: translateX(150px) translateY(60px); opacity: 0; }
+    /* Hero visual remains hidden on smaller mobile devices */
+    .hero__visual {
+        display: none;
     }
     
     /* Sections */
