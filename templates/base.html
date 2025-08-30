@@ -29,6 +29,12 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
 
+    <!-- Calendly widget -->
+    <link
+      href="https://assets.calendly.com/assets/external/widget.css"
+      rel="stylesheet"
+    />
+
     {% block extra_head %}{% endblock %}
   </head>
   <body>
@@ -161,6 +167,25 @@
 
     <!-- JavaScript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Calendly widget -->
+    <script
+      src="https://assets.calendly.com/assets/external/widget.js"
+      type="text/javascript"
+      async
+    ></script>
+    <script type="text/javascript">
+      window.onload = function () {
+        Calendly.initBadgeWidget({
+          url: "https://calendly.com/contact-genrative",
+          text: "Book 30 Minutes Free Consultation",
+          color: "#00d4ff",
+          textColor: "#ffffff",
+          branding: false,
+        });
+      };
+    </script>
+
     {% block extra_js %}{% endblock %}
   </body>
 </html>
