@@ -94,8 +94,8 @@
           <div class="footer__section">
             <h4 class="footer__subtitle">Contact</h4>
             <div class="footer__contact">
-              <p><i class="fas fa-envelope"></i> hello@genrative.me</p>
-              <p><i class="fab fa-whatsapp"></i> +1 (555) 123-4567</p>
+              <p><i class="fas fa-envelope"></i> contact@genrative.me</p>
+              <!-- <p><i class="fab fa-whatsapp"></i> +1 (555) 123-4567</p> -->
             </div>
           </div>
 
@@ -116,10 +116,10 @@
         </div>
 
         <div class="footer__bottom">
-          <p>&copy; 2024 Genrative.me. All rights reserved.</p>
+          <p>&copy; 2025 Genrative.me. All rights reserved.</p>
           <div class="footer__links">
-            <a href="#" class="footer__link">Privacy Policy</a>
-            <a href="#" class="footer__link">Terms of Service</a>
+            <a href="{{ url_for('privacy_policy') }}" class="footer__link">Privacy Policy</a>
+            <a href="{{ url_for('terms_of_service') }}" class="footer__link">Terms of Service</a>
           </div>
         </div>
       </div>
