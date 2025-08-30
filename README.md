@@ -158,8 +158,8 @@ This project is created for educational/commercial use. Customize as needed for 
 
 For questions about this landing page template:
 
-- Email: hello@genrative.me
-- GitHub: [Your Repository]
+- Email: contact@genrative.me
+- GitHub: [https://github.com/heighterses/genrative.me/]
 
 ---
 
