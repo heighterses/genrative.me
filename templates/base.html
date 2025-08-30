@@ -42,28 +42,37 @@
     <header class="header">
       <nav class="nav container">
         <div class="nav__brand">
-          <h2 class="nav__logo">Genrative<span class="accent">.me</span></h2>
+          <a
+            href="{{ url_for('index') }}"
+            style="text-decoration: none; color: inherit"
+          >
+            <h2 class="nav__logo">Genrative<span class="accent">.me</span></h2>
+          </a>
         </div>
 
         <div class="nav__menu" id="nav-menu">
           <ul class="nav__list">
             <li class="nav__item">
-              <a href="#home" class="nav__link">Home</a>
+              <a href="{{ url_for('index') }}#home" class="nav__link">Home</a>
             </li>
             <li class="nav__item">
-              <a href="#courses" class="nav__link">Courses</a>
+              <a href="{{ url_for('index') }}#courses" class="nav__link"
+                >Courses</a
+              >
             </li>
             <li class="nav__item">
-              <a href="#about" class="nav__link">About</a>
+              <a href="{{ url_for('index') }}#about" class="nav__link">About</a>
             </li>
             <li class="nav__item">
-              <a href="#contact" class="nav__link">Contact</a>
+              <a href="{{ url_for('index') }}#contact" class="nav__link"
+                >Contact</a
+              >
             </li>
           </ul>
         </div>
 
         <div class="nav__actions">
-          <button class="btn btn--primary" onclick="openBookingModal()">
+          <button class="btn btn--primary" onclick="openCalendlyWidget()">
             <i class="fas fa-calendar-alt"></i>
             Book 1:1 Call
           </button>
@@ -102,15 +111,15 @@
           <div class="footer__section">
             <h4 class="footer__subtitle">Follow Us</h4>
             <div class="footer__social">
-              <a href="#" class="footer__social-link"
+              <a href="https://www.linkedin.com/company/genrative-me" class="footer__social-link"
                 ><i class="fab fa-linkedin"></i
               ></a>
               <a href="#" class="footer__social-link"
                 ><i class="fab fa-twitter"></i
               ></a>
-              <a href="#" class="footer__social-link"
+              <!-- <a href="#" class="footer__social-link"
                 ><i class="fab fa-github"></i
-              ></a>
+              ></a> -->
             </div>
           </div>
         </div>
@@ -118,8 +127,12 @@
         <div class="footer__bottom">
           <p>&copy; 2025 Genrative.me. All rights reserved.</p>
           <div class="footer__links">
-            <a href="{{ url_for('privacy_policy') }}" class="footer__link">Privacy Policy</a>
-            <a href="{{ url_for('terms_of_service') }}" class="footer__link">Terms of Service</a>
+            <a href="{{ url_for('privacy_policy') }}" class="footer__link"
+              >Privacy Policy</a
+            >
+            <a href="{{ url_for('terms_of_service') }}" class="footer__link"
+              >Terms of Service</a
+            >
           </div>
         </div>
       </div>
@@ -178,12 +191,29 @@
       window.onload = function () {
         Calendly.initBadgeWidget({
           url: "https://calendly.com/contact-genrative",
-          text: "Book 30 Minutes Free Consultation",
+          text: "📅 30 Min Free Consultation",
           color: "#00d4ff",
           textColor: "#ffffff",
           branding: false,
         });
       };
+
+      // Universal function to open Calendly widget
+      function openCalendlyWidget() {
+        if (typeof Calendly !== "undefined") {
+          Calendly.initPopupWidget({
+            url: "https://calendly.com/contact-genrative",
+          });
+        } else {
+          // Fallback to direct link if Calendly isn't loaded
+          window.open("https://calendly.com/contact-genrative", "_blank");
+        }
+      }
+
+      // Also support the old function name for compatibility
+      function openBookingModal() {
+        openCalendlyWidget();
+      }
     </script>
 
     {% block extra_js %}{% endblock %}
