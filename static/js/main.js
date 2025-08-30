@@ -88,23 +88,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Modal functionality
+// Calendly integration
 function openBookingModal(courseType = '') {
-    const modal = document.getElementById('booking-modal');
-    const courseSelect = document.getElementById('course-interest');
-    
-    if (courseType && courseSelect) {
-        courseSelect.value = courseType;
+    // Open Calendly popup instead of modal
+    if (typeof Calendly !== 'undefined') {
+        Calendly.initPopupWidget({
+            url: 'https://calendly.com/contact-genrative'
+        });
+    } else {
+        // Fallback to direct link if Calendly isn't loaded
+        window.open('https://calendly.com/contact-genrative', '_blank');
     }
-    
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    
-    // Focus on first input
-    setTimeout(() => {
-        const firstInput = modal.querySelector('input');
-        if (firstInput) firstInput.focus();
-    }, 100);
 }
 
 function closeBookingModal() {

@@ -33,5 +33,13 @@ def book_call():
 def thank_you():
     return render_template('thank_you.html')
 
+@app.route('/privacy-policy')
+def privacy_policy():
+    return render_template('privacy_policy.html')
+
+@app.route('/terms-of-service')
+def terms_of_service():
+    return render_template('terms_of_service.html')
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=8000)

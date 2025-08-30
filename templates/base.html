@@ -29,6 +29,18 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
 
+    <!-- Calendly widget -->
+    <link
+      href="https://assets.calendly.com/assets/external/widget.css"
+      rel="stylesheet"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon.svg') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon.svg') }}">
+    <meta name="theme-color" content="#00d4ff">
+
     {% block extra_head %}{% endblock %}
   </head>
   <body>
@@ -36,28 +48,37 @@
     <header class="header">
       <nav class="nav container">
         <div class="nav__brand">
-          <h2 class="nav__logo">Genrative<span class="accent">.me</span></h2>
+          <a
+            href="{{ url_for('index') }}"
+            style="text-decoration: none; color: inherit"
+          >
+            <h2 class="nav__logo">Genrative<span class="accent">.me</span></h2>
+          </a>
         </div>
 
         <div class="nav__menu" id="nav-menu">
           <ul class="nav__list">
             <li class="nav__item">
-              <a href="#home" class="nav__link">Home</a>
+              <a href="{{ url_for('index') }}#home" class="nav__link">Home</a>
             </li>
             <li class="nav__item">
-              <a href="#courses" class="nav__link">Courses</a>
+              <a href="{{ url_for('index') }}#courses" class="nav__link"
+                >Courses</a
+              >
             </li>
             <li class="nav__item">
-              <a href="#about" class="nav__link">About</a>
+              <a href="{{ url_for('index') }}#about" class="nav__link">About</a>
             </li>
             <li class="nav__item">
-              <a href="#contact" class="nav__link">Contact</a>
+              <a href="{{ url_for('index') }}#contact" class="nav__link"
+                >Contact</a
+              >
             </li>
           </ul>
         </div>
 
         <div class="nav__actions">
-          <button class="btn btn--primary" onclick="openBookingModal()">
+          <button class="btn btn--primary" onclick="openCalendlyWidget()">
             <i class="fas fa-calendar-alt"></i>
             Book 1:1 Call
           </button>
@@ -88,32 +109,36 @@
           <div class="footer__section">
             <h4 class="footer__subtitle">Contact</h4>
             <div class="footer__contact">
-              <p><i class="fas fa-envelope"></i> hello@genrative.me</p>
-              <p><i class="fab fa-whatsapp"></i> +1 (555) 123-4567</p>
+              <p><i class="fas fa-envelope"></i> contact@genrative.me</p>
+              <!-- <p><i class="fab fa-whatsapp"></i> +1 (555) 123-4567</p> -->
             </div>
           </div>
 
           <div class="footer__section">
             <h4 class="footer__subtitle">Follow Us</h4>
             <div class="footer__social">
-              <a href="#" class="footer__social-link"
+              <a href="https://www.linkedin.com/company/genrative-me" class="footer__social-link"
                 ><i class="fab fa-linkedin"></i
               ></a>
               <a href="#" class="footer__social-link"
                 ><i class="fab fa-twitter"></i
               ></a>
-              <a href="#" class="footer__social-link"
+              <!-- <a href="#" class="footer__social-link"
                 ><i class="fab fa-github"></i
-              ></a>
+              ></a> -->
             </div>
           </div>
         </div>
 
         <div class="footer__bottom">
-          <p>&copy; 2024 Genrative.me. All rights reserved.</p>
+          <p>&copy; 2025 Genrative.me. All rights reserved.</p>
           <div class="footer__links">
-            <a href="#" class="footer__link">Privacy Policy</a>
-            <a href="#" class="footer__link">Terms of Service</a>
+            <a href="{{ url_for('privacy_policy') }}" class="footer__link"
+              >Privacy Policy</a
+            >
+            <a href="{{ url_for('terms_of_service') }}" class="footer__link"
+              >Terms of Service</a
+            >
           </div>
         </div>
       </div>
@@ -161,6 +186,156 @@
 
     <!-- JavaScript -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Calendly widget -->
+    <script
+      src="https://assets.calendly.com/assets/external/widget.js"
+      type="text/javascript"
+      async
+    ></script>
+    <script type="text/javascript">
+      window.onload = function () {
+        Calendly.initBadgeWidget({
+          url: "https://calendly.com/contact-genrative",
+          text: "Book Your Free 30-Min Consultation",
+          color: "#00d4ff",
+          textColor: "#ffffff",
+          branding: false,
+        });
+      };
+
+      // Universal function to open Calendly widget
+      function openCalendlyWidget() {
+        if (typeof Calendly !== "undefined") {
+          Calendly.initPopupWidget({
+            url: "https://calendly.com/contact-genrative",
+          });
+        } else {
+          // Fallback to direct link if Calendly isn't loaded
+          window.open("https://calendly.com/contact-genrative", "_blank");
+        }
+      }
+
+      // Also support the old function name for compatibility
+      function openBookingModal() {
+        openCalendlyWidget();
+      }
+      
+      // Adjust Calendly button position when scrolling near footer
+      function adjustCalendlyPosition() {
+        const footer = document.querySelector('.footer');
+        
+        if (footer) {
+          const footerRect = footer.getBoundingClientRect();
+          const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+          const isMobile = window.innerWidth <= 768;
+          
+          // Different calculations for mobile vs desktop
+          const baseBottom = isMobile ? 15 : 20;
+          const maxMoveUp = isMobile ? 150 : 250;
+          const extraPadding = isMobile ? 40 : 30;
+          
+          // Check if footer is visible in viewport
+          if (footerRect.top < windowHeight) {
+            // Calculate how much the footer overlaps with the viewport
+            const overlap = windowHeight - footerRect.top;
+            // Move the button up by the overlap amount plus some padding
+            const moveUp = Math.min(overlap + extraPadding, maxMoveUp);
+            const newBottom = baseBottom + moveUp;
+            
+            // Use CSS custom property to control position
+            document.documentElement.style.setProperty('--calendly-bottom', `${newBottom}px`);
+            
+            // Also try direct style application as fallback with more specific selectors
+            const calendlyWidgets = document.querySelectorAll('.calendly-badge-widget, [data-calendly-widget], .calendly-badge-content, .calendly-badge');
+            calendlyWidgets.forEach(widget => {
+              if (widget) {
+                widget.style.setProperty('bottom', `${newBottom}px`, 'important');
+                widget.style.setProperty('transition', 'bottom 0.3s ease', 'important');
+                
+                // For mobile, also check parent elements
+                if (isMobile && widget.parentElement) {
+                  widget.parentElement.style.setProperty('bottom', `${newBottom}px`, 'important');
+                }
+              }
+            });
+            
+          } else {
+            // Reset to original position
+            document.documentElement.style.setProperty('--calendly-bottom', `${baseBottom}px`);
+            
+            // Also reset direct styles
+            const calendlyWidgets = document.querySelectorAll('.calendly-badge-widget, [data-calendly-widget], .calendly-badge-content, .calendly-badge');
+            calendlyWidgets.forEach(widget => {
+              if (widget) {
+                widget.style.setProperty('bottom', `${baseBottom}px`, 'important');
+                
+                // Reset parent elements on mobile
+                if (isMobile && widget.parentElement) {
+                  widget.parentElement.style.setProperty('bottom', `${baseBottom}px`, 'important');
+                }
+              }
+            });
+          }
+        }
+      }
+      
+      // Wait for Calendly to load and then set up listeners
+      function setupCalendlyPositioning() {
+        // Check if Calendly widget exists
+        const checkWidget = setInterval(function() {
+          const calendlyWidget = document.querySelector('.calendly-badge-widget') || 
+                                document.querySelector('[data-calendly-widget]') ||
+                                document.querySelector('.calendly-badge-content') ||
+                                document.querySelector('.calendly-badge');
+          
+          if (calendlyWidget) {
+            clearInterval(checkWidget);
+            
+            // Throttle scroll events for better performance on mobile
+            let scrollTimeout;
+            function throttledAdjust() {
+              if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+              }
+              scrollTimeout = setTimeout(adjustCalendlyPosition, 16); // ~60fps
+            }
+            
+            // Add scroll listener with throttling
+            window.addEventListener('scroll', throttledAdjust, { passive: true });
+            window.addEventListener('resize', adjustCalendlyPosition);
+            
+            // Mobile-specific events
+            if (window.innerWidth <= 768) {
+              window.addEventListener('orientationchange', function() {
+                setTimeout(adjustCalendlyPosition, 500);
+              });
+              
+              // Touch events for mobile
+              window.addEventListener('touchmove', throttledAdjust, { passive: true });
+              window.addEventListener('touchend', adjustCalendlyPosition, { passive: true });
+            }
+            
+            // Initial check with delay for mobile
+            setTimeout(adjustCalendlyPosition, 100);
+            
+            console.log('Calendly positioning setup complete for', window.innerWidth <= 768 ? 'mobile' : 'desktop');
+          }
+        }, 300); // Check more frequently
+        
+        // Stop checking after 15 seconds
+        setTimeout(function() {
+          clearInterval(checkWidget);
+        }, 15000);
+      }
+      
+      // Setup positioning after page loads
+      window.addEventListener('load', setupCalendlyPositioning);
+      
+      // Also try after a delay to ensure Calendly is loaded
+      setTimeout(setupCalendlyPositioning, 2000);
+    </script>
+
     {% block extra_js %}{% endblock %}
   </body>
 </html>
