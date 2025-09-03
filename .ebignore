@@ -1,0 +1,15 @@
+# Elastic Beanstalk ignore file
+.git/
+.gitignore
+README.md
+.vscode/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.DS_Store
+Thumbs.db
